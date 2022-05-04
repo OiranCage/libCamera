@@ -19,6 +19,7 @@ class libCamera{
             new EventHandler(),
             $plugin
         );
+        $this->cameras = new SplObjectStorage();
     }
 
     public function attachCamera(Camera $camera): void{
