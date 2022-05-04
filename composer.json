@@ -1,0 +1,21 @@
+{
+  "name": "oirancage/lib-camera",
+  "description": "free camera api for pocketmine-mp",
+  "type": "library",
+  "require-dev": {
+    "pocketmine/pocketmine-mp": "^4.3"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "famima65536",
+      "email": "famima65536@gmail.com"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "oirancage\\libcamera\\": "src/oirancage/libcamera"
+    }
+  }
+}
