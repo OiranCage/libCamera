@@ -13,6 +13,8 @@ use pocketmine\player\Player;
 
 class Camera extends Entity
 {
+    protected $gravityEnabled = false;
+
     public function __construct(
         Location $location,
         private CameraSetting $cameraSetting
