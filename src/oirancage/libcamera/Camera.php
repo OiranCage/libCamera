@@ -40,7 +40,7 @@ class Camera extends Entity
         $pk = SetActorLinkPacket::create(new EntityLink(
             $this->getId(),
             $player->getId(),
-            EntityLink::TYPE_RIDER,
+            EntityLink::TYPE_PASSENGER,
             false,
             false
         ));
@@ -51,7 +51,7 @@ class Camera extends Entity
         $pk = SetActorLinkPacket::create(new EntityLink(
             $this->getId(),
             $player->getId(),
-            EntityLink::TYPE_RIDER,
+            EntityLink::TYPE_REMOVE,
             false,
             false
         ));
