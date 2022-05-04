@@ -21,15 +21,12 @@ class libCamera{
         );
     }
 
-    public function createCamera(Location $location, CameraSetting $cameraSetting): Camera{
-        $camera = new Camera($location, $cameraSetting);
+    public function attachCamera(Camera $camera): void{
         $this->cameras->attach($camera);
-        return $camera;
     }
 
-    public function destroyCamera(Camera $camera): void{
+    public function detachCamera(Camera $camera): void{
         $this->cameras->detach($camera);
-        $camera->flagForDespawn();
     }
 
     public function getCameras(): array{
