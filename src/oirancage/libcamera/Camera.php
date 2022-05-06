@@ -8,6 +8,7 @@ use pocketmine\entity\Location;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\SetActorLinkPacket;
 use pocketmine\network\mcpe\protocol\types\entity\EntityLink;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\player\Player;
 
@@ -30,13 +31,16 @@ class Camera extends Entity
         $this->unlink($player);
     }
 
-    private function link(Player $player): void{
-        $properties = $player->getNetworkProperties();
+    protected function updateLinkNetworkProperties(EntityMetadataCollection $properties){
         $properties->setVector3(EntityMetadataProperties::RIDER_SEAT_POSITION, new Vector3(0,0,0));
         $properties->setByte(EntityMetadataProperties::RIDER_ROTATION_LOCKED, ($this->cameraSetting->isCameraAngleLimited) ? 1 : 0);
         $properties->setFloat(EntityMetadataProperties::RIDER_SEAT_ROTATION_OFFSET, 0);
         $properties->setFloat(EntityMetadataProperties::RIDER_MIN_ROTATION, -$this->cameraSetting->cameraHalfAngle);
         $properties->setFloat(EntityMetadataProperties::RIDER_MAX_ROTATION, $this->cameraSetting->cameraHalfAngle);
+    }
+
+    protected function link(Player $player): void{
+        $this->updateLinkNetworkProperties($player->getNetworkProperties());
         $pk = SetActorLinkPacket::create(new EntityLink(
             $this->getId(),
             $player->getId(),
@@ -47,7 +51,7 @@ class Camera extends Entity
         $player->getNetworkSession()->sendDataPacket($pk);
     }
 
-    private function unlink(Player $player){
+    protected function unlink(Player $player){
         $pk = SetActorLinkPacket::create(new EntityLink(
             $this->getId(),
             $player->getId(),
