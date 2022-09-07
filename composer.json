@@ -3,7 +3,10 @@
   "description": "free camera api for pocketmine-mp",
   "type": "library",
   "require-dev": {
-    "pocketmine/pocketmine-mp": "^4.3"
+    "pocketmine/bedrock-block-upgrade-schema": "dev-master",
+    "pocketmine/bedrock-data": "dev-modern-world-support",
+    "pocketmine/bedrock-item-upgrade-schema": "dev-master",
+    "pocketmine/pocketmine-mp": "^5.0.0-ALPHA"
   },
   "license": "MIT",
   "authors": [
