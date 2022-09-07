@@ -14,7 +14,7 @@ class libCamera{
     /** @var SplObjectStorage<int, Camera> */
     private SplObjectStorage $cameras;
 
-    public function register(PluginBase $plugin){
+    public function register(PluginBase $plugin): void{
         $plugin->getServer()->getPluginManager()->registerEvents(
             new EventHandler(),
             $plugin
@@ -30,7 +30,10 @@ class libCamera{
         $this->cameras->detach($camera);
     }
 
-    public function getCameras(): array{
+    /**
+     * @return SplObjectStorage<Camera>
+     */
+    public function getCameras(): SplObjectStorage{
         return $this->cameras;
     }
 

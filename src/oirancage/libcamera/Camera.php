@@ -12,9 +12,9 @@ use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\player\Player;
 
-class Camera extends Entity
-{
-    protected $gravityEnabled = false;
+class Camera extends Entity{
+    
+    protected bool $gravityEnabled = false;
 
     public function __construct(
         Location $location,
@@ -23,15 +23,15 @@ class Camera extends Entity
         parent::__construct($location);
     }
 
-    public function watchBy(Player $player){
+    public function watchBy(Player $player): void{
         $this->link($player);
     }
 
-    public function unwatchBy(Player $player){
+    public function unwatchBy(Player $player): void{
         $this->unlink($player);
     }
 
-    protected function updateLinkNetworkProperties(EntityMetadataCollection $properties){
+    protected function updateLinkNetworkProperties(EntityMetadataCollection $properties): void{
         $properties->setVector3(EntityMetadataProperties::RIDER_SEAT_POSITION, new Vector3(0,0,0));
         $properties->setByte(EntityMetadataProperties::RIDER_ROTATION_LOCKED, ($this->cameraSetting->isCameraAngleLimited) ? 1 : 0);
         $properties->setFloat(EntityMetadataProperties::RIDER_SEAT_ROTATION_OFFSET, 0);
@@ -51,7 +51,7 @@ class Camera extends Entity
         $player->getNetworkSession()->sendDataPacket($pk);
     }
 
-    protected function unlink(Player $player){
+    protected function unlink(Player $player): void{
         $pk = SetActorLinkPacket::create(new EntityLink(
             $this->getId(),
             $player->getId(),
@@ -62,15 +62,19 @@ class Camera extends Entity
         $player->getNetworkSession()->sendDataPacket($pk);
     }
 
-
-
-    protected function getInitialSizeInfo(): EntitySizeInfo
-    {
+    protected function getInitialSizeInfo(): EntitySizeInfo{
         return new EntitySizeInfo(0.0, 0.0);
     }
 
-    public static function getNetworkTypeId(): string
-    {
+    public static function getNetworkTypeId(): string{
         return "libcamera:camera";
+    }
+
+    protected function getInitialDragMultiplier(): float{
+        return 0.0;
+    }
+
+    protected function getInitialGravity(): float{
+        return 0.0;
     }
 }
